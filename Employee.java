@@ -7,6 +7,7 @@ public class Employee {
     public int id;
     public String name;
     public ArrayList<Ponto> pontos = new ArrayList<Ponto>();
+    public int max_hours_per_day = 8;
 
     public Employee() {}
 
@@ -66,6 +67,10 @@ public class Employee {
             //talvez precise de mais um validator pra exception. mas ta claro oq faz
             instanced_return.add("Horas totais: " + (horasTotais - horasAlmoco));
 
+            if (max_hours_per_day < (horasTotais - horasAlmoco)) {
+                instanced_return.add("LIMITE CONTRATUAL EXTRAPOLADO");
+            }
+
             instanced_return.add("Horas de almoço: " + horasAlmoco);
         } else if (numPontos == 2) {
             //pega a primeira e a ultima, faz o calculo da qtd entre elas
@@ -74,6 +79,10 @@ public class Employee {
             long horasTrabalhadas = ChronoUnit.HOURS.between(horaInicio, horaTermino);
 
             instanced_return.add("Horas trabalhadas: " + horasTrabalhadas);
+
+            if (max_hours_per_day < horasTrabalhadas) {
+                instanced_return.add("LIMITE CONTRATUAL EXTRAPOLADO");
+            }
         } else if (numPontos % 2 != 0) {
             // exception para caso tenha algum ponto faltando, ou sobrando
             throw new Exception("Número ímpar de pontos encontrados!");

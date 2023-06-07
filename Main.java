@@ -11,7 +11,7 @@ public class Main {
         int opcao;
 
         while(logged) {
-            System.out.println("Qual açâo deseja realizar?");
+            System.out.println("\nQual açâo deseja realizar?");
             System.out.println("\n1: Listar Empregados \n2: Registrar Empregado \n3: Deletar Empregado \n4: Menu do Empregado \n5: Sair");
 
             opcao = input.nextInt();
@@ -25,8 +25,16 @@ public class Main {
                     Employee empregado = new Employee();
 
                     empregado.setId(empregador.employees.size() + 1);
-                    empregado.setName(input.nextLine());
+
+                    System.out.println("Escreva o nome do empregado: ");
+
+                    Scanner new_name = new Scanner(System.in);
+
+                    empregado.setName(new_name.nextLine());
+
                     empregador.registerEmployee(empregado);
+
+                    empregador.showEmployee(empregado.id);
                     break;
                 }
                 case 3: {
@@ -56,8 +64,12 @@ public class Main {
 
                                 empregador.registrarPonto(idEmpregado, ponto);
                             }
+                            case 3: {
+                                idEmpregado = 0;
+                            }
                         }
                     }
+                    break;
                 }
                 case 5: {
                     logged = false;

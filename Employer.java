@@ -28,10 +28,18 @@ public class Employer implements EmployerInterface {
     public void showEmployee(int id) {
         employees.forEach(functionary -> {
             if (id == functionary.id) {
-                System.out.println(functionary.id);
-                System.out.println(functionary.name);
+                System.out.println("Identificador: " + functionary.id);
+                System.out.println("Nome: " + functionary.name);
                 try {
-                    System.out.println(functionary.listPontos());
+                    ArrayList<String> pontos = functionary.listPontos();
+
+                    if (pontos.size() > 0) {
+                        for(String ponto : pontos) {
+                            System.out.println(ponto);
+                        }
+                    } else {
+                        System.out.println("Não há pontos registrados");
+                    }
                 } catch (Exception e) {
                     System.out.println(e);
                     throw new RuntimeException(e);
@@ -48,7 +56,15 @@ public class Employer implements EmployerInterface {
                 System.out.println(functionary.id);
                 System.out.println(functionary.name);
                 try {
-                    System.out.println(functionary.listPontos());
+                    ArrayList<String> pontos = functionary.listPontos();
+
+                    if (pontos.size() > 0) {
+                        for(String ponto : pontos) {
+                            System.out.println(ponto);
+                        }
+                    } else {
+                        System.out.println("Não há pontos registrados");
+                    }
                 } catch (Exception e) {
                     System.out.println(e);
                 }

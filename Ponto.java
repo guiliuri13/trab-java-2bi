@@ -1,15 +1,17 @@
 public class Ponto {
     public String time;
+
+    public String getTime() {
+        return time;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
     public String location;
 
-    public Ponto() {
-
-    }
-
-    public Ponto(String time, String location) {
-        this.time = time;
-        this.location = location;
-    }
+    public Ponto() {}
 
     public boolean isValidTimeFormat(String time) {
         //ve se n tem 5 char (se não ta invalido) -> #TODO: add validador pra 0 à esqueda do primeiro numero

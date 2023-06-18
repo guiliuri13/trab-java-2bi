@@ -34,7 +34,7 @@ public class Employee {
         pontos.add(ponto);
     }
 
-    public ArrayList<String> listPontos() throws Exception {
+    public ArrayList<String> listPontos(int max_hours_per_day) throws Exception {
         ArrayList<String> instanced_return = new ArrayList<String>();
 
         // formatter do java (luxon do JS)
@@ -42,11 +42,11 @@ public class Employee {
 
         ArrayList<LocalTime> formatted_pontos = new ArrayList<LocalTime>();
 
-        for (Ponto ponto : pontos) {
-            instanced_return.add(ponto.time + " | " + ponto.location);
+        for (Ponto ponto : this.pontos)  {
+            instanced_return.add(ponto.getTime() + " | " + ponto.getLocation());
 
             // add a array dos formatados
-            formatted_pontos.add(LocalTime.parse(ponto.time, formatter));
+            formatted_pontos.add(LocalTime.parse(ponto.getTime(), formatter));
         }
 
         int numPontos = formatted_pontos.size();

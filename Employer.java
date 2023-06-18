@@ -31,7 +31,7 @@ public class Employer implements EmployerInterface {
                 System.out.println("Identificador: " + functionary.id);
                 System.out.println("Nome: " + functionary.name);
                 try {
-                    ArrayList<String> pontos = functionary.listPontos();
+                    ArrayList<String> pontos = functionary.listPontos(functionary.max_hours_per_day);
 
                     if (pontos.size() > 0) {
                         for(String ponto : pontos) {
@@ -42,7 +42,6 @@ public class Employer implements EmployerInterface {
                     }
                 } catch (Exception e) {
                     System.out.println(e);
-                    throw new RuntimeException(e);
                 }
             }
         });
@@ -56,7 +55,7 @@ public class Employer implements EmployerInterface {
                 System.out.println(functionary.id);
                 System.out.println(functionary.name);
                 try {
-                    ArrayList<String> pontos = functionary.listPontos();
+                    ArrayList<String> pontos = functionary.listPontos(functionary.max_hours_per_day);
 
                     if (pontos.size() > 0) {
                         for(String ponto : pontos) {

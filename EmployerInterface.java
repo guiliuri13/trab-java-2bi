@@ -1,5 +1,6 @@
 public interface EmployerInterface {
-    void registerEmployee(Employee employee);
-    void showEmployee(int id);
-    void listEmployees();
+    void showEmployeeClt(int id);
+    void showEmployeePj(int id);
+    void listEmployeesClt();
+    void listEmployeesPj();
 }

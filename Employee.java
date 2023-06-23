@@ -2,27 +2,49 @@ import java.time.format.DateTimeFormatter;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Employee {
-    public int id;
+    public Integer id;
     public String name;
-    public ArrayList<Ponto> pontos = new ArrayList<Ponto>();
-    public int max_hours_per_day = 8;
+    public List<Ponto> pontos = new ArrayList<>();
+    public EEmployee tipoEmployer;
 
     public Employee() {}
 
-    public Employee(int id, String name, ArrayList<Ponto> pontos) {
+    public Employee(Integer id, String name, List<Ponto> pontos, EEmployee tipoEmployer) {
         this.id = id;
         this.name = name;
         this.pontos = pontos;
+        this.tipoEmployer = tipoEmployer;
     }
 
-    public Employee(int id, String name) {
+    public Employee(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public void setId(int id) {
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Ponto> getPontos() {
+        return pontos;
+    }
+
+    public void setPontos(List<Ponto> pontos) {
+        this.pontos = pontos;
+    }
+
+    public EEmployee getTipoEmployer() {
+        return tipoEmployer;
+    }
+
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -33,6 +55,11 @@ public class Employee {
     public void setPonto(Ponto ponto) {
         pontos.add(ponto);
     }
+
+    public void setTipoEmployer(EEmployee tipoEmployer) {
+        this.tipoEmployer = tipoEmployer;
+    }
+
 
     public ArrayList<String> listPontos(int max_hours_per_day) throws Exception {
         ArrayList<String> instanced_return = new ArrayList<String>();

@@ -5,7 +5,7 @@ public class Main {
         Scanner input = new Scanner(System.in);
         Employer empregador = new Employer();
 
-        boolean logged= true;
+        boolean logged = true;
         int idEmpregado = 0;
         int opcao;
 
@@ -15,32 +15,34 @@ public class Main {
 
             opcao = input.nextInt();
 
-            switch(opcao) {
-                case 1: {
-                    empregador.listEmployees();
-                    break;
+            switch (opcao) {
+                case 1 -> {
+                    System.out.println("Voce quer listar qual  \n1: Clt \n2: Pj");
+                    switch (input.nextInt()) {
+                        case 1 -> empregador.listEmployeesClt();
+                        case 2 -> empregador.listEmployeesPj();
+                    }
                 }
-                case 2: {
+                case 2 -> {
                     System.out.println("Será PJ? (s ou n): ");
                     Scanner is_pj = new Scanner(System.in);
-                    if (is_pj.nextLine() == "s") {
+                    if (is_pj.next().equalsIgnoreCase( "s")) {
                         EmployeePJ empregado = new EmployeePJ();
 
-                        empregado.setId(empregador.employees.size() + 1);
+                        empregado.setId(empregador.getEmployeesPj().size() + 1);
 
                         System.out.println("Escreva o nome do empregado: ");
-
                         Scanner new_name = new Scanner(System.in);
 
                         empregado.setName(new_name.nextLine());
+                        empregado.setTipoEmployer(EEmployee.PJ);
+                        empregador.registerEmployeePj(empregado);
 
-                        empregador.registerEmployee(empregado);
-
-                        empregador.showEmployee(empregado.id);
+                        empregador.showEmployeePj(empregado.getId());
                     } else {
-                        Employee empregado = new Employee();
+                        EmployeeClt empregado = new EmployeeClt();
 
-                        empregado.setId(empregador.employees.size() + 1);
+                        empregado.setId(empregador.getEmployeesClts().size() + 1);
 
                         System.out.println("Escreva o nome do empregado: ");
 
@@ -48,34 +50,39 @@ public class Main {
 
                         empregado.setName(new_name.nextLine());
 
-                        empregador.registerEmployee(empregado);
+                        empregado.setTipoEmployer(EEmployee.CLT);
+                        empregador.registerEmployeeClt(empregado);
 
-                        empregador.showEmployee(empregado.id);
+                        empregador.showEmployeeClt(empregado.getId());
                     }
 
-                    break;
                 }
-                case 3: {
-                    int id;
-
-                    id = input.nextInt();
-                    empregador.deleteEmployee(id);
-                    break;
+                case 3 -> {
+                    System.out.println("Qual tipo de funcionario voçê deletar \n1: Clt \n2: Pj");
+                    System.out.println("Digite o id do funcionario");
+                    var id = input.nextInt();
+                    switch (input.nextInt()) {
+                        case 1 -> empregador.deleteEmployeeClt(id);
+                        case 2 -> empregador.deleteEmployeePj(id);
+                    }
                 }
-                case 4: {
+                case 4 -> {
                     System.out.print("Insira o id do usuário desejado: ");
                     idEmpregado = input.nextInt();
 
-                    while(idEmpregado != 0) {
+                    while (idEmpregado != 0) {
                         System.out.println("\nQual ação deseja realizar? \n1: Mostrar Empregado \n2: Registrar Ponto \n3: Sair");
                         int opcaoMenuEmpregado = input.nextInt();
 
                         switch (opcaoMenuEmpregado) {
-                            case 1: {
-                                empregador.showEmployee(idEmpregado);
-                                break;
+                            case 1 -> {
+                                System.out.println("Voce quer listar qual  \n1: Clt \n2: Pj");
+                                switch (input.nextInt()) {
+                                    case 1 -> empregador.showEmployeeClt(idEmpregado);
+                                    case 2 -> empregador.showEmployeePj(idEmpregado);
+                                }
                             }
-                            case 2: {
+                            case 2 -> {
                                 Scanner hor = new Scanner(System.in);
                                 System.out.println("Informe horário: ");
 
@@ -91,23 +98,22 @@ public class Main {
                                 new_ponto.setLocation(new_loc);
                                 new_ponto.setTime(new_hour);
 
-                                empregador.registrarPonto(idEmpregado, new_ponto);
-                                break;
+                                System.out.println("Qual tipo de funcionario voçê quer incluir \n1: Clt \n2: Pj");
+                                switch (input.nextInt()) {
+                                    case 1 -> empregador.registrarPontoClt(idEmpregado, new_ponto);
+                                    case 2 -> empregador.registrarPontoPj(idEmpregado, new_ponto);
+                                }
                             }
-                            case 3: {
+                            case 3 -> {
                                 idEmpregado = 0;
-                                break;
                             }
                         }
                     }
-                    break;
                 }
-                case 5: {
+                case 5 -> {
                     logged = false;
-                    break;
                 }
-                default: {
-                    break;
+                default -> {
                 }
             }
         }

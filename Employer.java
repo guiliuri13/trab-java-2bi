@@ -1,40 +1,80 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Employer implements EmployerInterface {
-    private int id;
-    public ArrayList<Employee> employees = new ArrayList<Employee>();
+    private Integer id;
+    private ArrayList<EmployeePJ> employeesPj = new ArrayList<>();
+    private ArrayList<EmployeeClt> employeesClts = new ArrayList<>();
+
 
     public Employer() {
 
     }
 
-    public Employer(int id, ArrayList<Employee> employees) {
+    public Employer(Integer id, ArrayList<EmployeePJ> employeesPj, ArrayList<EmployeeClt> employeesClts) {
         this.id = id;
-        this.employees = employees;
+        this.employeesPj = employeesPj;
+        this.employeesClts = employeesClts;
     }
 
-    public void registerEmployee(Employee employee) {
-        employees.add(employee);
+    public Employer(Integer id, ArrayList<Employee> employees) {
+        this.id = id;
     }
 
-    public void deleteEmployee(int id) {
-        employees.forEach(employee -> {
-            if (employee.id == id) {
-                employees.remove(employee);
+    public void registerEmployeePj(Employee employee) {
+        employeesPj.add(EmployeePJ.of(employee));
+    }
+
+    public void registerEmployeeClt(Employee employee) {
+        employeesClts.add(EmployeeClt.of(employee));
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<EmployeeClt> getEmployeesClts() {
+        return employeesClts;
+    }
+
+    public List<EmployeePJ> getEmployeesPj() {
+        return employeesPj;
+    }
+
+    public void setEmployeesPj(ArrayList<EmployeePJ> employeesPj) {
+        this.employeesPj = employeesPj;
+    }
+
+    public void deleteEmployeeClt(Integer id) {
+        employeesClts.forEach(employee -> {
+            if (employee.getId().equals(id)) {
+                employeesClts.remove(employee);
             }
         });
     }
 
-    public void showEmployee(int id) {
-        employees.forEach(functionary -> {
-            if (id == functionary.id) {
-                System.out.println("Identificador: " + functionary.id);
-                System.out.println("Nome: " + functionary.name);
+    public void deleteEmployeePj(Integer id) {
+        employeesPj.forEach(employee -> {
+            if (employee.getId().equals(id)) {
+                employeesPj.remove(employee);
+            }
+        });
+    }
+
+    public void showEmployeeClt(int id) {
+        employeesClts.forEach(functionary -> {
+            if (id == functionary.getId()) {
+                System.out.println("Identificador: " + functionary.getId());
+                System.out.println("Nome: " + functionary.getName());
                 try {
-                    ArrayList<String> pontos = functionary.listPontos(functionary.max_hours_per_day);
+                    var pontos = functionary.listPontos(functionary.getMax_hours_per_day());
 
                     if (pontos.size() > 0) {
-                        for(String ponto : pontos) {
+                        for (String ponto : pontos) {
                             System.out.println(ponto);
                         }
                     } else {
@@ -47,18 +87,40 @@ public class Employer implements EmployerInterface {
         });
     }
 
-    public void listEmployees() {
-        if(employees.size() == 0) {
-            System.out.println("Não há empregados registrados");
-        } else {
-            employees.forEach(functionary -> {
-                System.out.println(functionary.id);
-                System.out.println(functionary.name);
+    public void showEmployeePj(int id) {
+        employeesPj.forEach(functionary -> {
+            if (id == functionary.getId()) {
+                System.out.println("Identificador: " + functionary.getId());
+                System.out.println("Nome: " + functionary.name);
                 try {
-                    ArrayList<String> pontos = functionary.listPontos(functionary.max_hours_per_day);
+                    var pontos = functionary.listPontos(functionary.getMax_hours_per_day());
 
                     if (pontos.size() > 0) {
-                        for(String ponto : pontos) {
+                        for (String ponto : pontos) {
+                            System.out.println(ponto);
+                        }
+                    } else {
+                        System.out.println("Não há pontos registrados");
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            }
+        });
+    }
+
+    public void listEmployeesClt() {
+        if (employeesClts.size() == 0) {
+            System.out.println("Não há empregados registrados");
+        } else {
+            employeesClts.forEach(functionary -> {
+                System.out.println(functionary.getId());
+                System.out.println(functionary.getName());
+                try {
+                    ArrayList<String> pontos = functionary.listPontos(functionary.getMax_hours_per_day());
+
+                    if (pontos.size() > 0) {
+                        for (String ponto : pontos) {
                             System.out.println(ponto);
                         }
                     } else {
@@ -71,9 +133,41 @@ public class Employer implements EmployerInterface {
         }
     }
 
-    public void registrarPonto(int id, Ponto ponto) {
-        employees.forEach(employee -> {
-            if (employee.id == id) {
+    public void listEmployeesPj() {
+        if (employeesPj.size() == 0) {
+            System.out.println("Não há empregados registrados");
+        } else {
+            employeesPj.forEach(functionary -> {
+                System.out.println(functionary.getId());
+                System.out.println(functionary.getName());
+                try {
+                    ArrayList<String> pontos = functionary.listPontos(functionary.getMax_hours_per_day());
+
+                    if (pontos.size() > 0) {
+                        for (String ponto : pontos) {
+                            System.out.println(ponto);
+                        }
+                    } else {
+                        System.out.println("Não há pontos registrados");
+                    }
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+            });
+        }
+    }
+
+    public void registrarPontoClt(Integer id, Ponto ponto) {
+        employeesClts.forEach(employee -> {
+            if (employee.getId().equals(id)) {
+                employee.setPonto(ponto);
+            }
+        });
+    }
+
+    public void registrarPontoPj(Integer id, Ponto ponto) {
+        employeesPj.forEach(employee -> {
+            if (employee.getId().equals(id)) {
                 employee.setPonto(ponto);
             }
         });
